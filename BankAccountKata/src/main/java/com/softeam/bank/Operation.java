@@ -12,7 +12,7 @@ public class Operation {
 	public Operation() {
 	}
 
-	public Operation(OperationType type, LocalDateTime date, BigDecimal amount, BigDecimal balance) {
+	public Operation(OperationType type, LocalDateTime date, BigDecimal amount) {
 		this.operationType = type;
 		this.operationDate = date;
 		this.amount = amount;

@@ -41,5 +41,20 @@ public class BankAccountTests {
 			assert (aExp.getMessage().contains("The amount of deposit must be positive"));
 		}
 	}
+	/*
+	 * US 2: As a bank client I want to make a withdrawal from my account
+	 * 
+	 */
+
+	@Test
+	public void withdraw_PositiveValue_BalanceDecreased() {
+		// the balance decreases by the value of amount
+		BankAccount account = new BankAccount();
+		BigDecimal deposit = new BigDecimal(250);
+		account.deposit(deposit);
+		BigDecimal withdrawal = new BigDecimal(100);
+		account.withdraw(withdrawal);
+		assertEquals(150, account.getBalance().longValue());
+	}
 
 }

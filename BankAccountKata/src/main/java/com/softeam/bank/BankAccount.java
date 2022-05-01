@@ -51,10 +51,22 @@ public class BankAccount {
 		// if amount is positive we update the balance and add operation to history
 		if (amount.compareTo(BigDecimal.ZERO) >= 0) {
 			balance = balance.add(amount);
-			this.operations.add(new Operation(OperationType.DEPOSIT, LocalDateTime.now(), amount, balance));
+			this.operations.add(new Operation(OperationType.DEPOSIT, LocalDateTime.now(), amount));
 		} else {
 			throw new IllegalArgumentException(THE_AMOUNT_OF_DEPOSIT_MUST_BE_POSITIVE);
 		}
+	}
+
+	public void withdraw(BigDecimal amount) {
+		// if amount is positive we check if there is enough balance in the account, and
+		// we update the balance and we add operation to history
+		if (amount.compareTo(BigDecimal.ZERO) >= 0) {
+			if (balance.compareTo(amount) > 0) {
+				balance = balance.subtract(amount);
+				this.operations.add(new Operation(OperationType.WITHDRAWAL, LocalDateTime.now(), amount));
+			}
+		}
+
 	}
 
 }
