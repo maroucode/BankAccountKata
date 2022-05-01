@@ -12,6 +12,8 @@ public class BankAccount {
 	private BigDecimal balance;
 	private List<Operation> operations;
 
+	private static final String THE_AMOUNT_OF_DEPOSIT_MUST_BE_POSITIVE = "The amount of deposit must be positive";
+
 	public BankAccount() {
 		this.operations = new ArrayList<Operation>();
 		this.balance = new BigDecimal(0);
@@ -50,6 +52,8 @@ public class BankAccount {
 		if (amount.compareTo(BigDecimal.ZERO) >= 0) {
 			balance = balance.add(amount);
 			this.operations.add(new Operation(OperationType.DEPOSIT, LocalDateTime.now(), amount, balance));
+		} else {
+			throw new IllegalArgumentException(THE_AMOUNT_OF_DEPOSIT_MUST_BE_POSITIVE);
 		}
 	}
 
