@@ -90,6 +90,31 @@ public class BankAccountTests {
 		}
 	}
 
+	/*
+	 * US 3: As a bank client I want to see the history of my operations
+	 *
+	 */
+	@Test
+	public void displayHistory_MessageShown() {
+		// create an account and perform some operations and check history
+		BankAccount account = new BankAccount();
+		account.setAccountNumber("001200651");
+		account.setClientName("Sébastien Petit");
+		BigDecimal firstdeposit = new BigDecimal(250);
+		account.deposit(firstdeposit);
+		BigDecimal firstWithdrawal = new BigDecimal(50);
+		account.withdraw(firstWithdrawal);
+		BigDecimal secondDeposit = new BigDecimal(500);
+		account.deposit(secondDeposit);
+		BigDecimal secondWithdrawal = new BigDecimal(240);
+		account.withdraw(secondWithdrawal);
+		StringBuilder out = new StringBuilder();
+		out.append("History of operations for Account  " + account.getAccountNumber() + ":  \n");
+		account.getOperations().forEach(op -> out.append(op.toString()));
+		account.displayHistory();
+		assertEquals(out.toString(), outputRedirected.toString());
+	}
+
 	@After
 	public void restoreOutput() {
 		System.setOut(System.out);

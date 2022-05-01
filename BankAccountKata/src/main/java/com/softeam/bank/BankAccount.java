@@ -52,7 +52,7 @@ public class BankAccount {
 		// if amount is positive we update the balance and add operation to history
 		if (amount.compareTo(BigDecimal.ZERO) >= 0) {
 			balance = balance.add(amount);
-			this.operations.add(new Operation(OperationType.DEPOSIT, LocalDateTime.now(), amount));
+			this.operations.add(new Operation(OperationType.DEPOSIT, LocalDateTime.now(), amount, balance));
 		} else {
 			throw new IllegalArgumentException(THE_AMOUNT_MUST_BE_POSITIVE);
 		}
@@ -64,7 +64,7 @@ public class BankAccount {
 		if (amount.compareTo(BigDecimal.ZERO) >= 0) {
 			if (balance.compareTo(amount) > 0) {
 				balance = balance.subtract(amount);
-				this.operations.add(new Operation(OperationType.WITHDRAWAL, LocalDateTime.now(), amount));
+				this.operations.add(new Operation(OperationType.WITHDRAWAL, LocalDateTime.now(), amount, balance));
 			} else {
 				System.out.print(YOU_DO_NOT_HAVE_BALANCE_FOR_THIS_WITHDRAWAL);
 			}
@@ -74,4 +74,9 @@ public class BankAccount {
 
 	}
 
+	public void displayHistory() {
+		// Prints name, account number and the operations
+		System.out.print("History of operations for Account  " + getAccountNumber() + ":  \n");
+		operations.forEach(System.out::print);
+	}
 }

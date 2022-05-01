@@ -8,14 +8,16 @@ public class Operation {
 	private OperationType operationType;
 	private LocalDateTime operationDate;
 	private BigDecimal amount;
+	private BigDecimal balance;
 
 	public Operation() {
 	}
 
-	public Operation(OperationType type, LocalDateTime date, BigDecimal amount) {
+	public Operation(OperationType type, LocalDateTime date, BigDecimal amount, BigDecimal balance) {
 		this.operationType = type;
 		this.operationDate = date;
 		this.amount = amount;
+		this.balance = balance;
 	}
 
 	public OperationType getOperationType() {
@@ -42,4 +44,18 @@ public class Operation {
 		this.amount = amount;
 	}
 
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
+
+	@Override
+	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		return " Type : " + getOperationType().toString() + " Date : " + getOperationDate().format(formatter)
+				+ " Amount: " + getAmount() + ",  Balance : " + getBalance() + "\n";
+	}
 }
