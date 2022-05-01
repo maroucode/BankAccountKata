@@ -15,6 +15,13 @@ import com.softeam.bank.BankAccount;
 
 public class BankAccountTests {
 
+	private final ByteArrayOutputStream outputRedirected = new ByteArrayOutputStream();
+
+	@Before
+	public void redirectOutput() {
+		System.setOut(new PrintStream(outputRedirected));
+	}
+
 	/*
 	 * 
 	 * US 1 : As a bank client, I want to make a deposit in my account
@@ -57,4 +64,19 @@ public class BankAccountTests {
 		assertEquals(150, account.getBalance().longValue());
 	}
 
+	@Test
+	public void withdraw_AmountGreaterThanBalance_MessageShown() {
+		// Display error message in the output when balance not enough
+		BankAccount account = new BankAccount();
+		BigDecimal deposit = new BigDecimal(200);
+		account.deposit(deposit);
+		BigDecimal withdrawal = new BigDecimal(300);
+		account.withdraw(withdrawal);
+		assertEquals("You do not have balance for this withdrawal", outputRedirected.toString());
+	}
+
+	@After
+	public void restoreOutput() {
+		System.setOut(System.out);
+	}
 }

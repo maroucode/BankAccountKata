@@ -13,6 +13,7 @@ public class BankAccount {
 	private List<Operation> operations;
 
 	private static final String THE_AMOUNT_OF_DEPOSIT_MUST_BE_POSITIVE = "The amount of deposit must be positive";
+	private static final String YOU_DO_NOT_HAVE_BALANCE_FOR_THIS_WITHDRAWAL = "You do not have balance for this withdrawal";
 
 	public BankAccount() {
 		this.operations = new ArrayList<Operation>();
@@ -64,6 +65,8 @@ public class BankAccount {
 			if (balance.compareTo(amount) > 0) {
 				balance = balance.subtract(amount);
 				this.operations.add(new Operation(OperationType.WITHDRAWAL, LocalDateTime.now(), amount));
+			} else {
+				System.out.print(YOU_DO_NOT_HAVE_BALANCE_FOR_THIS_WITHDRAWAL);
 			}
 		}
 
