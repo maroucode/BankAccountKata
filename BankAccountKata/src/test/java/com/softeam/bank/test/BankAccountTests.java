@@ -45,7 +45,7 @@ public class BankAccountTests {
 			account.deposit(depositAmount);
 			fail("Exception should be thrown for a deposit of a negative number");
 		} catch (IllegalArgumentException aExp) {
-			assert (aExp.getMessage().contains("The amount of deposit must be positive"));
+			assert (aExp.getMessage().contains("The amount must be positive"));
 		}
 	}
 	/*
@@ -73,6 +73,21 @@ public class BankAccountTests {
 		BigDecimal withdrawal = new BigDecimal(300);
 		account.withdraw(withdrawal);
 		assertEquals("You do not have balance for this withdrawal", outputRedirected.toString());
+	}
+
+	@Test
+	public void withdraw_NegativeValue_ErrorThrown() {
+		// throw an exception when a withdrawal has a negative value
+		try {
+			BankAccount account = new BankAccount();
+			BigDecimal deposit = new BigDecimal(250);
+			account.deposit(deposit);
+			BigDecimal withdrawal = new BigDecimal(-85);
+			account.withdraw(withdrawal);
+			fail("Throw an exception when making a withdrawal of a negative number");
+		} catch (IllegalArgumentException aExp) {
+			assert (aExp.getMessage().contains("The amount must be positive"));
+		}
 	}
 
 	@After
