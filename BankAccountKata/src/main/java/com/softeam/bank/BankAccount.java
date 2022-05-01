@@ -46,7 +46,11 @@ public class BankAccount {
 	}
 
 	public void deposit(BigDecimal amount) {
-
+		// if amount is positive we update the balance and add operation to history
+		if (amount.compareTo(BigDecimal.ZERO) >= 0) {
+			balance = balance.add(amount);
+			this.operations.add(new Operation(OperationType.DEPOSIT, LocalDateTime.now(), amount, balance));
+		}
 	}
 
 }
